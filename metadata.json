@@ -1,0 +1,6 @@
+{
+  "name": "MH Outreach",
+  "description": "An offline-first Mental Health Outreach ERP for camp registries, case statistics, and database reporting.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

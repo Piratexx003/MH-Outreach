@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MH Outreach</string>
+    <string name="delete_confirm_title_patient">Delete Patient Record?</string>
+    <string name="delete_confirm_message_patient">Are you sure you want to delete the record of %1$s (Reg No: %2$s)? This action cannot be undone.</string>
+    <string name="delete_confirm_title_doctor">Delete Doctor?</string>
+    <string name="delete_confirm_message_doctor">Are you sure you want to delete Doctor %1$s? This action cannot be undone.</string>
+    <string name="delete_confirm_title_attender">Delete Staff Member?</string>
+    <string name="delete_confirm_message_attender">Are you sure you want to delete staff member %1$s? This action cannot be undone.</string>
+    <string name="delete_confirm_yes">Delete</string>
+    <string name="delete_confirm_no">Cancel</string>
+</resources>
