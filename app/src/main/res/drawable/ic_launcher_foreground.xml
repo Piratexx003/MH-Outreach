@@ -3,148 +3,216 @@
     xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
-    android:viewportWidth="108"
-    android:viewportHeight="108">
+    android:viewportWidth="100"
+    android:viewportHeight="100">
 
-    <!-- LAYER 1: Radiant Halo Ring of Mindfulness and Healing -->
-    <path
-        android:strokeWidth="3.0"
-        android:strokeLineCap="round"
-        android:pathData="M 54,16 A 38,38 0 1,1 53.9,16">
-        <aapt:attr name="android:strokeColor">
-            <gradient
-                android:startX="16"
-                android:startY="16"
-                android:endX="92"
-                android:endY="92"
-                android:type="linear">
-                <item android:offset="0.0" android:color="#F59E0B" /> <!-- Warm Amber -->
-                <item android:offset="0.4" android:color="#10B981" /> <!-- Energetic Emerald -->
-                <item android:offset="0.8" android:color="#6366F1" /> <!-- Vibrant Indigo -->
-                <item android:offset="1.0" android:color="#F43F5E" /> <!-- Bold Rose -->
-            </gradient>
-        </aapt:attr>
-    </path>
-
-    <!-- LAYER 2: Stem/Spinal Column at the Base of the Brain -->
-    <path
-        android:pathData="M 50,78 L 50,92 C 50,95 58,95 58,92 L 58,78 Z">
-        <aapt:attr name="android:fillColor">
-            <gradient
-                android:startX="50"
-                android:startY="78"
-                android:endX="58"
-                android:endY="92"
-                android:type="linear">
-                <item android:offset="0.0" android:color="#6366F1" /> <!-- Vibrant Indigo -->
-                <item android:offset="1.0" android:color="#312E81" /> <!-- Deepest Indigo -->
-            </gradient>
-        </aapt:attr>
-    </path>
-
-    <!-- LAYER 3: Combined Luminous Cerebral Cortex Silhouette -->
-    <!-- Left Cerebral Hemisphere (Teal To Emerald: Represents logical thought and vitality) -->
-    <path
-        android:pathData="M 54,23 C 34.5,23 23.5,35 23.5,50 C 23.5,60 32,69 36,75 C 41,83 48.5,83 54,83 Z">
-        <aapt:attr name="android:fillColor">
-            <gradient
-                android:startX="23"
-                android:startY="23"
-                android:endX="54"
-                android:endY="83"
-                android:type="linear">
-                <item android:offset="0.0" android:color="#2DD4BF" /> <!-- Tech Teal -->
-                <item android:offset="1.0" android:color="#10B981" /> <!-- Emerald Green -->
-            </gradient>
-        </aapt:attr>
-    </path>
-
-    <!-- Right Cerebral Hemisphere (Indigo to Pink/Rose: Represents creativity, mindfulness and emotion) -->
-    <path
-        android:pathData="M 54,23 C 73.5,23 84.5,35 84.5,50 C 84.5,60 76,69 72,75 C 67,83 59.5,83 54,83 Z">
-        <aapt:attr name="android:fillColor">
-            <gradient
-                android:startX="84"
-                android:startY="23"
-                android:endX="54"
-                android:endY="83"
-                android:type="linear">
-                <item android:offset="0.0" android:color="#6366F1" /> <!-- Indigo -->
-                <item android:offset="1.0" android:color="#F43F5E" /> <!-- Rose Pink -->
-            </gradient>
-        </aapt:attr>
-    </path>
-
-    <!-- LAYER 4: Elegant Organic Brain Folds / Slices (White & Semi-transparent overlay to deliver depth) -->
-    <!-- Left Hemispheric Folds (Creative/Structural sulci) -->
-    <path
-        android:strokeWidth="2.5"
-        android:strokeLineCap="round"
-        android:strokeColor="#FFFFFF"
-        android:strokeAlpha="0.4"
-        android:pathData="M 45,28 C 40,32 32,38 30,46" />
-    <path
-        android:strokeWidth="2.5"
-        android:strokeLineCap="round"
-        android:strokeColor="#FFFFFF"
-        android:strokeAlpha="0.4"
-        android:pathData="M 51,36 C 44,40 38,48 40,56" />
-    <path
-        android:strokeWidth="2.5"
-        android:strokeLineCap="round"
-        android:strokeColor="#FFFFFF"
-        android:strokeAlpha="0.3"
-        android:pathData="M 49,48 C 36,52 30,62 36,68" />
-    <path
-        android:strokeWidth="2.5"
-        android:strokeLineCap="round"
-        android:strokeColor="#0B0F19"
-        android:strokeAlpha="0.25"
-        android:pathData="M 53,60 C 45,63 42,70 47,76" />
-
-    <!-- Right Hemispheric Folds (Expression/Introspection sulci) -->
-    <path
-        android:strokeWidth="2.5"
-        android:strokeLineCap="round"
-        android:strokeColor="#FFFFFF"
-        android:strokeAlpha="0.4"
-        android:pathData="M 63,28 C 68,32 76,38 78,46" />
-    <path
-        android:strokeWidth="2.5"
-        android:strokeLineCap="round"
-        android:strokeColor="#FFFFFF"
-        android:strokeAlpha="0.4"
-        android:pathData="M 57,36 C 64,40 70,48 68,56" />
-    <path
-        android:strokeWidth="2.5"
-        android:strokeLineCap="round"
-        android:strokeColor="#FFFFFF"
-        android:strokeAlpha="0.3"
-        android:pathData="M 59,48 C 72,52 78,62 72,68" />
-    <path
-        android:strokeWidth="2.5"
-        android:strokeLineCap="round"
-        android:strokeColor="#0B0F19"
-        android:strokeAlpha="0.25"
-        android:pathData="M 55,60 C 63,63 66,70 61,76" />
-
-    <!-- Deep center dividing fissure to delineate hemispheres -->
-    <path
-        android:strokeWidth="1.8"
-        android:strokeLineCap="round"
-        android:strokeColor="#1E1B4B"
-        android:strokeAlpha="0.75"
-        android:pathData="M 54,23 L 54,83" />
-
-    <!-- LAYER 5: 3D Soft Drop-Shadow for the Clinical Healthcare Cross -->
-    <path
-        android:fillColor="#0B0F19"
-        android:fillAlpha="0.3"
-        android:pathData="M 48.5,45.5 h 5 v -5 h 6 v 5 h 5 v 6 h -5 v 5 h -6 v -5 h -5 Z" />
-
-    <!-- LAYER 6: Clean White Outreach Medical Cross (Represents Clinical Excellence/ERP Reliability) -->
+    <!-- 1. CALMING GLOW & HALO LAYERS (Representing peace, mindfulness, and glow) -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M 47,44 h 5 v -5 h 6 v 5 h 5 v 6 h -5 v 5 h -6 v -5 h -5 Z" />
+        android:fillAlpha="0.10"
+        android:pathData="M 50,19 a 31,31 0 1 1 -0.1,0 Z" />
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.18"
+        android:pathData="M 50,23 a 27,27 0 1 1 -0.1,0 Z" />
+
+    <!-- 2. SMOOTH FLOWING CURVES (Hugging sweeps representing mindfulness and airiness) -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.5"
+        android:strokeAlpha="0.35"
+        android:strokeLineCap="round"
+        android:pathData="M 22,68 C 22,68 28,78 40,78" />
+
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.5"
+        android:strokeAlpha="0.35"
+        android:strokeLineCap="round"
+        android:pathData="M 78,68 C 78,68 72,78 60,78" />
+
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.0"
+        android:strokeAlpha="0.25"
+        android:strokeLineCap="round"
+        android:pathData="M 30,17 C 40,13 60,13 70,17" />
+
+    <!-- 3. BRAIN DEPTH SHADOW LAYER (Subtle 3D offset and soft shading) -->
+    <path
+        android:fillColor="#152E47"
+        android:fillAlpha="0.15"
+        android:pathData="M 52,22 C 48,22 45,23 42,24 C 38,25 35,27 33,30 C 30,33 28,36 27,40 C 26,44 26,48 27,51 C 28,55 30,58 32,61 C 34,64 37,67 40,69 C 43,71 46,73 49,74 L 55,74 C 58,73 61,71 64,69 C 67,67 70,64 72,61 C 74,58 76,55 77,51 C 78,48 78,44 77,40 C 76,33 74,33 71,30 C 69,27 66,25 62,24 C 59,23 56,22 52,22 Z" />
+
+    <!-- 4. CORE MINDFUL HUMAN BRAIN (Main Element filled with sky-blue to teal gradient) -->
+    <path
+        android:pathData="M 50,20 C 46,20 43,21 40,22 C 36,23 33,25 31,28 C 28,31 26,34 25,38 C 24,42 24,46 25,49 C 26,53 28,56 30,59 C 32,62 35,65 38,67 C 41,69 44,71 47,72 L 53,72 C 56,71 59,69 62,67 C 65,65 68,62 70,59 C 72,56 74,53 75,49 C 76,46 76,42 75,38 C 74,34 72,31 69,28 C 67,25 64,23 60,22 C 57,21 54,20 50,20 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="26"
+                android:startY="20"
+                android:endX="74"
+                android:endY="72"
+                android:type="linear">
+                <!-- Calming soft sky blue at the top/left -->
+                <item android:offset="0.0" android:color="#78A5EC" />
+                <!-- Bright soothing blue in the middle -->
+                <item android:offset="0.45" android:color="#59CCE0" />
+                <!-- Calming, restorative medical teal blue at bottom/right -->
+                <item android:offset="1.0" android:color="#36C2AC" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- 5. BRAIN STRUCTURE CREASES (Snow-white accents representing flow of thoughts) -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.5"
+        android:strokeAlpha="0.45"
+        android:strokeLineCap="round"
+        android:pathData="M 50,20 L 50,34" />
+
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.5"
+        android:strokeAlpha="0.45"
+        android:strokeLineCap="round"
+        android:pathData="M 50,54 L 50,72" />
+
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.65"
+        android:strokeLineCap="round"
+        android:pathData="M 38,28 C 36,33 42,35 44,38" />
+
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.65"
+        android:strokeLineCap="round"
+        android:pathData="M 28,40 C 31,43 33,40 37,42" />
+
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.65"
+        android:strokeLineCap="round"
+        android:pathData="M 30,52 C 34,54 36,50 42,50" />
+
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.65"
+        android:strokeLineCap="round"
+        android:pathData="M 62,28 C 64,33 58,35 56,38" />
+
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.65"
+        android:strokeLineCap="round"
+        android:pathData="M 72,40 C 69,43 67,40 63,42" />
+
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.65"
+        android:strokeLineCap="round"
+        android:pathData="M 70,52 C 66,54 64,50 58,50" />
+
+    <!-- 6. GENTLE NEURAL PATHWAY LINES & SYSTOLIC NODES -->
+    <!-- Pathway L1 -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.0"
+        android:strokeAlpha="0.85"
+        android:strokeLineCap="round"
+        android:pathData="M 41,40 C 37,38 34,36 32,38" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 32,38 m -0.8,0 a 0.8,0.8 0 1,1 1.6,0 a 0.8,0.8 0 1,1 -1.6,0" />
+
+    <!-- Pathway L2 -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.0"
+        android:strokeAlpha="0.85"
+        android:strokeLineCap="round"
+        android:pathData="M 43,46 C 39,48 37,52 35,53" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 35,53 m -0.8,0 a 0.8,0.8 0 1,1 1.6,0 a 0.8,0.8 0 1,1 -1.6,0" />
+
+    <!-- Pathway R1 -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.0"
+        android:strokeAlpha="0.85"
+        android:strokeLineCap="round"
+        android:pathData="M 59,40 C 63,38 66,36 68,38" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 68,38 m -0.8,0 a 0.8,0.8 0 1,1 1.6,0 a 0.8,0.8 0 1,1 -1.6,0" />
+
+    <!-- Pathway R2 -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.0"
+        android:strokeAlpha="0.85"
+        android:strokeLineCap="round"
+        android:pathData="M 57,46 C 61,48 63,52 65,53" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 65,53 m -0.8,0 a 0.8,0.8 0 1,1 1.6,0 a 0.8,0.8 0 1,1 -1.6,0" />
+
+    <!-- 7. CHERISHED HEALTH HEART INNER COMPASSION (Warm coral pink center for emotional healing) -->
+    <!-- Heart Shadow -->
+    <path
+        android:fillColor="#152A42"
+        android:fillAlpha="0.18"
+        android:pathData="M 51,53.5 C 51,53.5 42,46.5 42,41.5 C 42,38 44.5,36 47.5,36 C 49.2,36 50.3,37 51,38 C 51.7,37 52.8,36 54.5,36 C 57.5,36 60,38 60,41.5 C 60,46.5 51,53.5 51,53.5 Z" />
+
+    <!-- Heart Main -->
+    <path
+        android:fillColor="#FF7171"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.5"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M 50,52 C 50,52 41,45 41,40 C 41,36.5 43.5,34.5 46.5,34.5 C 48.2,34.5 49.3,35.5 50,36.5 C 50.7,35.5 51.8,34.5 53.5,34.5 C 56.5,34.5 59,36.5 59,40 C 59,45 50,52 50,52 Z" />
+
+    <!-- Heart highlight reflection -->
+    <path
+        android:strokeColor="#FFE5E5"
+        android:strokeWidth="0.8"
+        android:strokeLineCap="round"
+        android:pathData="M 44.2,39.0 C 44.2,37.5 45.5,37.0 46.5,37.0" />
+
+    <!-- 8. SPARKLING MIND STARS (Healing and clarity stars) -->
+    <!-- Star 1 (Top Left) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.90"
+        android:pathData="M 26,26 L 26.3,24.5 L 26.6,26 L 28.1,26.3 L 26.6,26.6 L 26.3,28.1 L 26,26.6 L 24.5,26.3 Z" />
+
+    <!-- Star 2 (Top Right) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.90"
+        android:pathData="M 74,26 L 74.3,24.5 L 74.6,26 L 76.1,26.3 L 74.6,26.6 L 74.3,28.1 L 74,26.6 L 72.5,26.3 Z" />
+
+    <!-- Star 3 (Lower Left Center) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.80"
+        android:pathData="M 22,50 L 22.2,48.8 L 22.4,50 L 23.6,50.2 L 22.4,50.4 L 22.2,51.6 L 22,50.4 L 20.8,50.2 Z" />
+
+    <!-- Star 4 (Lower Right Center) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.80"
+        android:pathData="M 78,50 L 78.2,48.8 L 78.4,50 L 79.6,50.2 L 78.4,50.4 L 78.2,51.6 L 78,50.4 L 76.8,50.2 Z" />
 
 </vector>

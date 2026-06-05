@@ -40,7 +40,7 @@ fun ReportsScreen(
         { _, year, month, dayOfMonth ->
             val cal = Calendar.getInstance()
             cal.set(year, month, dayOfMonth)
-            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
             fromDate = sdf.format(cal.time)
         },
         calendar.get(Calendar.YEAR),
@@ -53,7 +53,7 @@ fun ReportsScreen(
         { _, year, month, dayOfMonth ->
             val cal = Calendar.getInstance()
             cal.set(year, month, dayOfMonth)
-            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
             toDate = sdf.format(cal.time)
         },
         calendar.get(Calendar.YEAR),

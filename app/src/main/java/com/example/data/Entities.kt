@@ -37,3 +37,14 @@ data class Patient(
         return categoriesString.split(",").map { it.trim() }.filter { it.isNotEmpty() }
     }
 }
+
+@Entity(tableName = "schedules")
+data class OutreachSchedule(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val dateString: String,      // YYYY-MM-DD
+    val targetMonth: String,     // e.g. "August 2026"
+    val creationMonth: String,   // e.g. "June 2026"
+    val doctorName: String,
+    val attenderName: String,
+    val location: String
+)

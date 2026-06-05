@@ -24,15 +24,14 @@ object ReportExporter {
     }
 
     private fun getFilteredPatients(patients: List<Patient>, fromDate: String, toDate: String): List<Patient> {
-        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val start = if (fromDate.isNotBlank()) sdf.parse(fromDate) else null
-        val end = if (toDate.isNotBlank()) sdf.parse(toDate) else null
+        val start = if (fromDate.isNotBlank()) DateUtils.parseDate(fromDate) else null
+        val end = if (toDate.isNotBlank()) DateUtils.parseDate(toDate) else null
 
         return patients.filter { p ->
             try {
-                val pDate = sdf.parse(p.date)
-                val matchesStart = start == null || (pDate != null && !pDate.before(start))
-                val matchesEnd = end == null || (pDate != null && !pDate.after(end))
+                val pDate = DateUtils.parseDate(p.date)
+                val matchesStart = start == null || !pDate.before(start)
+                val matchesEnd = end == null || !pDate.after(end)
                 matchesStart && matchesEnd
             } catch (e: Exception) {
                 true // Include if parsing fails
@@ -57,7 +56,7 @@ object ReportExporter {
                 csvHeader = "Date,Registration No.,Patient Name,Age,Sex,Visit Type,Outreach Centre,Doctor,Attender,Diagnosis,Mental Health Categories"
                 csvContent.append(csvHeader).append("\n")
                 filtered.forEach { p ->
-                    csvContent.append(escapeCsv(p.date)).append(",")
+                    csvContent.append(escapeCsv(DateUtils.formatToIndianDate(p.date))).append(",")
                         .append(escapeCsv(p.regNo)).append(",")
                         .append(escapeCsv(p.patientName)).append(",")
                         .append(p.age).append(",")
@@ -129,7 +128,8 @@ object ReportExporter {
 
                 val statsMap = mutableMapOf<String, DailyStats>()
                 filtered.forEach { p ->
-                    val stats = statsMap.getOrPut(p.date) { DailyStats() }
+                    val indianDateStr = DateUtils.formatToIndianDate(p.date)
+                    val stats = statsMap.getOrPut(indianDateStr) { DailyStats() }
                     if (p.type == "New") {
                         if (p.sex == "Male") stats.newM++ else if (p.sex == "Female") stats.newF++
                     } else if (p.type == "Old") {
@@ -138,7 +138,11 @@ object ReportExporter {
                     if (p.sex == "Male") stats.totM++ else if (p.sex == "Female") stats.totF++
                 }
 
-                statsMap.keys.sortedDescending().forEach { d ->
+                statsMap.keys.sortedWith { d1, d2 ->
+                    val date1 = DateUtils.parseDate(d1)
+                    val date2 = DateUtils.parseDate(d2)
+                    date2.compareTo(date1)
+                }.forEach { d ->
                     val s = statsMap[d]!!
                     csvContent.append(escapeCsv(d)).append(",")
                         .append(s.newM).append(",")

@@ -23,7 +23,8 @@ enum class Screen {
     PatientEntry,
     PatientList,
     Reports,
-    Backup
+    Backup,
+    Schedule
 }
 
 class MhViewModel(private val repository: MhRepository) : ViewModel() {
@@ -54,6 +55,12 @@ class MhViewModel(private val repository: MhRepository) : ViewModel() {
     )
 
     val patients = repository.allPatients.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = emptyList()
+    )
+
+    val schedules = repository.allSchedules.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = emptyList()
@@ -149,9 +156,87 @@ class MhViewModel(private val repository: MhRepository) : ViewModel() {
         }
     }
 
+    // Schedule Input Form States
+    val scheduleDate = MutableStateFlow(DateUtils.getTodayIndianDate())
+    val scheduleDoctor = MutableStateFlow("")
+    val scheduleAttender = MutableStateFlow("")
+    val scheduleLocation = MutableStateFlow("")
+    val scheduleTargetMonth = MutableStateFlow("") 
+    val editingScheduleId = MutableStateFlow<Long?>(null)
+
+    fun startEditingSchedule(schedule: OutreachSchedule) {
+        scheduleDate.value = DateUtils.formatToIndianDate(schedule.dateString)
+        scheduleDoctor.value = schedule.doctorName
+        scheduleAttender.value = schedule.attenderName
+        scheduleLocation.value = schedule.location
+        scheduleTargetMonth.value = schedule.targetMonth
+        editingScheduleId.value = schedule.id
+    }
+
+    fun cancelEditingSchedule() {
+        scheduleDate.value = DateUtils.getTodayIndianDate()
+        scheduleDoctor.value = ""
+        scheduleAttender.value = ""
+        scheduleLocation.value = ""
+        scheduleTargetMonth.value = ""
+        editingScheduleId.value = null
+    }
+
+    fun saveSchedule() {
+        val dateVal = scheduleDate.value.trim()
+        val docName = scheduleDoctor.value.trim()
+        val attName = scheduleAttender.value.trim()
+        val loc = scheduleLocation.value.trim()
+        
+        if (dateVal.isEmpty() || loc.isEmpty()) {
+            triggerMessage("Please fill camp date and location details")
+            return
+        }
+
+        // Calculate Target Month and Creation Month
+        var calcTargetMonth = scheduleTargetMonth.value.trim()
+        val parsedDate = DateUtils.parseDate(dateVal)
+
+        val cal = Calendar.getInstance().apply { time = parsedDate }
+        val creationMonthName = SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(cal.time)
+
+        if (calcTargetMonth.isEmpty()) {
+            // Rule: Default to the Month and Year of the allocated camp date itself
+            calcTargetMonth = SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(parsedDate)
+        }
+
+        viewModelScope.launch {
+            repository.insertSchedule(
+                OutreachSchedule(
+                    id = editingScheduleId.value ?: 0L,
+                    dateString = DateUtils.formatToIndianDate(dateVal),
+                    targetMonth = calcTargetMonth,
+                    creationMonth = creationMonthName,
+                    doctorName = docName,
+                    attenderName = attName,
+                    location = loc
+                )
+            )
+            val isEdit = editingScheduleId.value != null
+            cancelEditingSchedule()
+            if (isEdit) {
+                triggerMessage("Outreach schedule updated successfully!")
+            } else {
+                triggerMessage("Outreach schedule added successfully!")
+            }
+        }
+    }
+
+    fun deleteSchedule(id: Long) {
+        viewModelScope.launch {
+            repository.deleteScheduleById(id)
+            triggerMessage("Outreach camp schedule entry deleted")
+        }
+    }
+
     // Patient Form States
     val editingPatientId = MutableStateFlow<Long?>(null)
-    val patientDate = MutableStateFlow(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()))
+    val patientDate = MutableStateFlow(DateUtils.getTodayIndianDate())
     val outreachCentre = MutableStateFlow("")
     val attendingDoctor = MutableStateFlow("")
     val attenderNameSelected = MutableStateFlow("")
@@ -251,7 +336,7 @@ class MhViewModel(private val repository: MhRepository) : ViewModel() {
     }
 
     fun clearPatientForm() {
-        patientDate.value = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        patientDate.value = DateUtils.getTodayIndianDate()
         // Retain outreachCentre, attendingDoctor, and attenderNameSelected as constant/persistent states across consecutive entries.
         patientType.value = "New"
         patientRegNo.value = ""
@@ -266,7 +351,7 @@ class MhViewModel(private val repository: MhRepository) : ViewModel() {
 
     fun startEditingPatient(patient: Patient) {
         editingPatientId.value = patient.id
-        patientDate.value = patient.date
+        patientDate.value = DateUtils.formatToIndianDate(patient.date)
         outreachCentre.value = patient.outreach
         attendingDoctor.value = patient.doctorName
         attenderNameSelected.value = patient.attenderName
@@ -329,7 +414,7 @@ class MhViewModel(private val repository: MhRepository) : ViewModel() {
             val patient = Patient(
                 id = editingPatientId.value ?: 0L,
                 regNo = regVal,
-                date = dateValue,
+                date = DateUtils.formatToIndianDate(dateValue),
                 outreach = outreachValue,
                 doctorName = doctorValue,
                 attenderName = attenderValue,

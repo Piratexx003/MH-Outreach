@@ -240,7 +240,7 @@ fun PatientVisitRowCard(
                     horizontalAlignment = Alignment.End
                 ) {
                     Text(
-                        text = patient.date,
+                        text = DateUtils.formatToIndianDate(patient.date),
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurfaceVariant

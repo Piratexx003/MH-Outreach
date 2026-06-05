@@ -37,8 +37,28 @@ fun BackupScreen(
         contract = ActivityResultContracts.GetContent()
     ) { uri ->
         if (uri != null) {
-            viewModel.restoreDatabaseFromJson(context, uri) {
-                viewModel.navigateTo(Screen.Dashboard)
+            var fileName = ""
+            if (uri.scheme == "content") {
+                val cursor = context.contentResolver.query(uri, null, null, null, null)
+                cursor?.use { c ->
+                    if (c.moveToFirst()) {
+                        val index = c.getColumnIndex(android.provider.OpenableColumns.DISPLAY_NAME)
+                        if (index >= 0) {
+                            fileName = c.getString(index) ?: ""
+                        }
+                    }
+                }
+            }
+            if (fileName.isEmpty()) {
+                fileName = uri.path ?: ""
+            }
+
+            if (fileName.isNotEmpty() && !fileName.endsWith(".json", ignoreCase = true)) {
+                viewModel.triggerMessage("Error: Only .json files are allowed for restoring database backup.")
+            } else {
+                viewModel.restoreDatabaseFromJson(context, uri) {
+                    viewModel.navigateTo(Screen.Dashboard)
+                }
             }
         }
     }
@@ -119,9 +139,9 @@ fun BackupScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             BackupOptionCard(
-                title = "Export Local Database",
-                description = "Build a structured backup file containing all current visits, specialists, and workforce directories. Downloads directly to your local file system or permits instant secure sharing.",
-                actionText = "Export Database Backup",
+                title = "Save Backup to Downloads",
+                description = "Build and save a secure backup (.json) of all specialists, staff rosters, and patient records directly to your device local storage under 'Downloads/MH Outreach'.",
+                actionText = "Save Backup to Downloads",
                 icon = Icons.Default.SaveAlt,
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 onClick = {
@@ -130,15 +150,27 @@ fun BackupScreen(
                     if (path != null) {
                         viewModel.triggerMessage("Backup saved directly to Download folder: $path")
                     } else {
-                        ReportExporter.shareJsonBackup(context, backupStr)
-                        viewModel.triggerMessage("Backup exported via system share.")
+                        viewModel.triggerMessage("Failed to write to local storage downloads directly.")
                     }
                 }
             )
 
             BackupOptionCard(
+                title = "Share Backup via WhatsApp & Others",
+                description = "Generate and immediately send/share the database backup file with colleagues, sync contacts, or storage clouds using WhatsApp, Gmail, or other systems.",
+                actionText = "Share Backup File",
+                icon = Icons.Default.Share,
+                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                onClick = {
+                    val backupStr = viewModel.getBackupJson()
+                    ReportExporter.shareJsonBackup(context, backupStr)
+                    viewModel.triggerMessage("Preparing backup for direct sharing...")
+                }
+            )
+
+            BackupOptionCard(
                 title = "Restore Local Database",
-                description = "Safely ingest a previously exported .json file to restore clinical lists and registers. The system automatically inspects records to merge entries without creating duplications.",
+                description = "Safely ingest a previously exported backup file (.json) received over WhatsApp, email, or files. The system automatically merges records to update specialists, attenders, and patient visits without duplication.",
                 actionText = "Restore Database Backup",
                 icon = Icons.Default.FileUpload,
                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,

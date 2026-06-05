@@ -1,5 +1,6 @@
 package com.example.ui
 
+import com.example.BuildConfig
 import android.app.Activity
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
@@ -62,6 +63,7 @@ fun MainScreen(
 
     val menuItems = listOf(
         NavigationMenuItem(Screen.Dashboard, "Dashboard Overview", Icons.Default.Dashboard),
+        NavigationMenuItem(Screen.Schedule, "Camps Schedule Plan", Icons.Default.DateRange),
         NavigationMenuItem(Screen.Doctors, "Doctors Specialist", Icons.Default.LocalHospital),
         NavigationMenuItem(Screen.Attenders, "Clinic Attenders", Icons.Default.AssignmentInd),
         NavigationMenuItem(Screen.PatientEntry, "Patient Entry Log", Icons.Default.PersonAdd),
@@ -173,6 +175,7 @@ fun MainScreen(
                     title = {
                         val screenTitle = when (currentScreen) {
                             Screen.Dashboard -> "Dashboard Overview"
+                            Screen.Schedule -> "Outreach Camp Planner"
                             Screen.Doctors -> "Doctors Registry"
                             Screen.Attenders -> "Staff Attenders"
                             Screen.PatientEntry -> "Patient Entry Form"
@@ -211,11 +214,9 @@ fun MainScreen(
                 ) {
                     val bottomItems = listOf(
                         NavigationMenuItem(Screen.Dashboard, "Home", Icons.Default.Dashboard),
-                        NavigationMenuItem(Screen.Doctors, "Doctors", Icons.Default.LocalHospital),
-                        NavigationMenuItem(Screen.Attenders, "Staff", Icons.Default.AssignmentInd),
+                        NavigationMenuItem(Screen.Schedule, "Schedule", Icons.Default.DateRange),
                         NavigationMenuItem(Screen.PatientEntry, "Add Log", Icons.Default.PersonAdd),
                         NavigationMenuItem(Screen.PatientList, "Search", Icons.Default.Search),
-                        NavigationMenuItem(Screen.Reports, "Reports", Icons.Default.BarChart),
                         NavigationMenuItem(Screen.Backup, "Backup", Icons.Default.Cloud)
                     )
                     bottomItems.forEach { item ->
@@ -246,21 +247,46 @@ fun MainScreen(
             snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
             modifier = modifier
         ) { innerPadding ->
-            // Use Box to handle padding safely, ensuring App never overlaps status bars or runs in total full screen clipping.
-            Box(
+            // Use Column to layout the active screen and an elegant footer at the bottom of every page
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
                     .background(MaterialTheme.colorScheme.background)
             ) {
-                when (currentScreen) {
-                    Screen.Dashboard -> DashboardScreen(viewModel = viewModel)
-                    Screen.Doctors -> DoctorsScreen(viewModel = viewModel)
-                    Screen.Attenders -> AttendersScreen(viewModel = viewModel)
-                    Screen.PatientEntry -> PatientEntryScreen(viewModel = viewModel)
-                    Screen.PatientList -> PatientListScreen(viewModel = viewModel)
-                    Screen.Reports -> ReportsScreen(viewModel = viewModel)
-                    Screen.Backup -> BackupScreen(viewModel = viewModel)
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                ) {
+                    when (currentScreen) {
+                        Screen.Dashboard -> DashboardScreen(viewModel = viewModel)
+                        Screen.Schedule -> ScheduleScreen(viewModel = viewModel)
+                        Screen.Doctors -> DoctorsScreen(viewModel = viewModel)
+                        Screen.Attenders -> AttendersScreen(viewModel = viewModel)
+                        Screen.PatientEntry -> PatientEntryScreen(viewModel = viewModel)
+                        Screen.PatientList -> PatientListScreen(viewModel = viewModel)
+                        Screen.Reports -> ReportsScreen(viewModel = viewModel)
+                        Screen.Backup -> BackupScreen(viewModel = viewModel)
+                    }
+                }
+
+                // Elegantly styled footer at the bottom of every page
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f))
+                        .padding(vertical = 6.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "Made by Aniruddha Dey | v${BuildConfig.VERSION_NAME}",
+                        style = MaterialTheme.typography.labelSmall.copy(
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.SemiBold
+                        ),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
+                    )
                 }
             }
         }

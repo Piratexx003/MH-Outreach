@@ -4,6 +4,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -34,6 +35,7 @@ fun DashboardScreen(
     val patients by viewModel.patients.collectAsState()
     val doctors by viewModel.doctors.collectAsState()
     val attenders by viewModel.attenders.collectAsState()
+    val schedules by viewModel.schedules.collectAsState()
 
     var newPatCount by remember { mutableIntStateOf(0) }
     var oldPatCount by remember { mutableIntStateOf(0) }
@@ -88,7 +90,7 @@ fun DashboardScreen(
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    text = "Welcome to MH Outreach ERP",
+                    text = "Welcome to Mental Health Outreach",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -132,21 +134,24 @@ fun DashboardScreen(
                             count = patients.size.toString(),
                             icon = Icons.Default.People,
                             color = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            onClick = { viewModel.navigateTo(Screen.PatientList) }
                         )
                         StatCard(
                             title = "New Visits",
                             count = newPatCount.toString(),
                             icon = Icons.Default.PersonAdd,
                             color = Color(0xFF10B981),
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            onClick = { viewModel.navigateTo(Screen.PatientList) }
                         )
                         StatCard(
                             title = "Old Visits",
                             count = oldPatCount.toString(),
                             icon = Icons.Default.AssignmentInd,
                             color = Color(0xFF0EA5E9),
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            onClick = { viewModel.navigateTo(Screen.PatientList) }
                         )
                     }
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -155,21 +160,32 @@ fun DashboardScreen(
                             count = smdCount.toString(),
                             icon = Icons.Default.Warning,
                             color = Color(0xFFF43F5E),
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            onClick = { viewModel.navigateTo(Screen.PatientList) }
                         )
                         StatCard(
                             title = "Doctors Listed",
                             count = doctors.size.toString(),
                             icon = Icons.Default.LocalHospital,
                             color = Color(0xFF8B5CF6),
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            onClick = { viewModel.navigateTo(Screen.Doctors) }
                         )
                         StatCard(
                             title = "Staff Attenders",
                             count = attenders.size.toString(),
                             icon = Icons.Default.ContactPhone,
                             color = Color(0xFFF59E0B),
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            onClick = { viewModel.navigateTo(Screen.Attenders) }
+                        )
+                        StatCard(
+                            title = "Planned Camps",
+                            count = schedules.size.toString(),
+                            icon = Icons.Default.DateRange,
+                            color = Color(0xFF06B6D4),
+                            modifier = Modifier.weight(1f),
+                            onClick = { viewModel.navigateTo(Screen.Schedule) }
                         )
                     }
                 }
@@ -181,14 +197,16 @@ fun DashboardScreen(
                             count = patients.size.toString(),
                             icon = Icons.Default.People,
                             color = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            onClick = { viewModel.navigateTo(Screen.PatientList) }
                         )
                         StatCard(
                             title = "New Visits",
                             count = newPatCount.toString(),
                             icon = Icons.Default.PersonAdd,
                             color = Color(0xFF10B981),
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            onClick = { viewModel.navigateTo(Screen.PatientList) }
                         )
                     }
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -197,14 +215,16 @@ fun DashboardScreen(
                             count = oldPatCount.toString(),
                             icon = Icons.Default.AssignmentInd,
                             color = Color(0xFF0EA5E9),
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            onClick = { viewModel.navigateTo(Screen.PatientList) }
                         )
                         StatCard(
                             title = "Severe Cases",
                             count = smdCount.toString(),
                             icon = Icons.Default.Warning,
                             color = Color(0xFFF43F5E),
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            onClick = { viewModel.navigateTo(Screen.PatientList) }
                         )
                     }
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -213,14 +233,26 @@ fun DashboardScreen(
                             count = doctors.size.toString(),
                             icon = Icons.Default.LocalHospital,
                             color = Color(0xFF8B5CF6),
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            onClick = { viewModel.navigateTo(Screen.Doctors) }
                         )
                         StatCard(
                             title = "Staff Attenders",
                             count = attenders.size.toString(),
                             icon = Icons.Default.ContactPhone,
                             color = Color(0xFFF59E0B),
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            onClick = { viewModel.navigateTo(Screen.Attenders) }
+                        )
+                    }
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                        StatCard(
+                            title = "Planned Camps",
+                            count = schedules.size.toString(),
+                            icon = Icons.Default.DateRange,
+                            color = Color(0xFF06B6D4),
+                            modifier = Modifier.weight(1f),
+                            onClick = { viewModel.navigateTo(Screen.Schedule) }
                         )
                     }
                 }
@@ -275,10 +307,11 @@ fun StatCard(
     count: String,
     icon: ImageVector,
     color: Color,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
 ) {
     Card(
-        modifier = modifier,
+        modifier = modifier.clickable { onClick() },
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         shape = RoundedCornerShape(12.dp)

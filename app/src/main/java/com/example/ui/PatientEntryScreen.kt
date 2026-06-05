@@ -71,7 +71,7 @@ fun PatientEntryScreen(
         { _, year, month, dayOfMonth ->
             val cal = Calendar.getInstance()
             cal.set(year, month, dayOfMonth)
-            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
             viewModel.patientDate.value = sdf.format(cal.time)
         },
         calendar.get(Calendar.YEAR),

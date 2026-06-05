@@ -58,4 +58,22 @@ interface PatientDao {
 
     @Query("DELETE FROM attenders")
     suspend fun deleteAllAttenders()
+
+    @Query("DELETE FROM schedules")
+    suspend fun deleteAllSchedules()
+}
+
+@Dao
+interface ScheduleDao {
+    @Query("SELECT * FROM schedules ORDER BY dateString ASC, id DESC")
+    fun getAllSchedulesFlow(): Flow<List<OutreachSchedule>>
+
+    @Query("SELECT * FROM schedules ORDER BY dateString ASC, id DESC")
+    suspend fun getAllSchedules(): List<OutreachSchedule>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertSchedule(schedule: OutreachSchedule)
+
+    @Query("DELETE FROM schedules WHERE id = :id")
+    suspend fun deleteScheduleById(id: Long)
 }
